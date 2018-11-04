@@ -150,7 +150,7 @@ public class Grammar {
 						if( rhs.contains(total) && !rhs.contains(total+"'")) { //follow가 있을 경우
 							String sp[] = rhs.split(total);
 							if(sp.length>1) {  //뒤에 무언가 있음.
-								if(sp[1].charAt(0) > 45 && sp[1].charAt(0) < 90  ){ //nonterminal
+								if(sp[1].charAt(0) >= 65 && sp[1].charAt(0) <= 90  ){ //nonterminal
 									if(sp[1].length()>1 ) {
 										String word = "";
 										if( sp[1].charAt(1) =='\'') {
