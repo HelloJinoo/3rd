@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <TextView
+    android:id="@+id/textview3"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:text="주문"
+     />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/checkbox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="reset"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="피자"/>
+        <Button
+            android:id="@+id/plusbutton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:enabled="false"
+            android:onClick="pizzaplus"
+            />
+        <Button
+            android:id="@+id/minusbutton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:enabled="false"
+            android:onClick="pizzaminus"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/checkbox2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="reset"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="스파게티"/>
+
+        <Button
+            android:id="@+id/plusbutton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:enabled="false"
+            android:onClick="spagetiplus"
+            />
+        <Button
+            android:id="@+id/minusbutton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:enabled="false"
+            android:onClick="spagetiminus"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/textview4"
+        android:text="피자 = 0"
+        android:gravity="center"
+        />
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/textview5"
+        android:text="스파게티 = 0"
+        android:gravity="center"
+        />
+    <Button
+        android:id="@+id/setbutton"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="확인"
+        android:onClick="set"
+        android:gravity="center"
+        />
+
+</LinearLayout>
