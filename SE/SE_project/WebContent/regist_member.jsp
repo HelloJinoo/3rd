@@ -9,11 +9,11 @@
 <body>
 	<h2>회원등록</h2>
 	<form action="regist_member2.jsp" method="post">
-	ID : <input type="text" name="id" > <br/>
-	비밀번호 : <input type="password" name="pwd" ><br/>
-	주소 : <input type="text" name="addr" ><br/>
-	현황 : <input type="number" name="current" max="1" min="0"><br/>
-	권한 : <input type="number" name="authority" max="2" min="1"><br/>
+	ID : <input type="text" name="id" required> <br/>
+	비밀번호 : <input type="password" name="pwd" required><br/>
+	주소 : <input type="text" name="addr" required><br/>
+	현황(재학:1 / 휴학:0) : <input type="number" name="current" max="1" min="0" required><br/>
+	권한(학생:1 / 교수:2): <input type="number" name="authority" max="2" min="1" required><br/>
 	<input type="submit" value="회원등록">
 	</form>
 	

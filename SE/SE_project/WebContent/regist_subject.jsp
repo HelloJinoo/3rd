@@ -11,14 +11,14 @@
 
 	<h2>강의등록</h2>
 	<form action="regist_subject2.jsp">
-	강의명 : <input type="text" name="sub_name" >
-	교수명 : <input type="text" name="pro_name" >
-	학년 : <input type="number" name="grade" >
-	인원 : <input type="number" name="personnel" >
-	시간 : <input type="text" name="time" >
-	요일 : <input type="text" name="day">
-	장소 : <input type="text" name="place">
-	<input type="submit" value="강의등록">
+	강의명 : <input type="text" name="sub_name" required>
+	교수명 : <input type="text" name="pro_name" required >
+	학년 : <input type="number" name="grade" required>
+	인원 : <input type="number" name="personnel" required>
+	시간 : <input type="text" name="time" required>
+	요일 : <input type="text" name="day" required>
+	장소 : <input type="text" name="place" required>
+	<input type="submit" value="강의등록" required>
 	</form>
 	
 	

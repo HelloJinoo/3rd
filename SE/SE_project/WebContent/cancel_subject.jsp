@@ -19,7 +19,7 @@
 			%>
 				<script>	
 					alert("수강취소 되었습니다.");
-					location.href="after_login_sudentMain.jsp";
+					location.href="after_login_studentMain.jsp";
 				</script>
 			<% 
 		}

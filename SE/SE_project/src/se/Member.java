@@ -40,7 +40,7 @@ public class Member {
 	/*회원 - 개인정보수정*/
 	public int modify_information(String id , String password , String address ,String current) throws Exception{
 		conn = getConnection();
-		sql = "update member set password =? , address = ? , current =? where stdNo = ?";
+		sql = "update member set password =? , address = ? , current =? where id = ?";
 		pstmt = (PreparedStatement) conn.prepareStatement(sql);
 		pstmt.setString(1, password);
 		pstmt.setString(2, address);

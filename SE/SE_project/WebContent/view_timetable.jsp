@@ -14,6 +14,9 @@
 			Subject s = new Subject();
 			String id = (String)session.getAttribute("id");
 			ResultSet rs = s.view_timetable(id);
+			if(rs.next()){
+
+				rs.previous();
 		%>
 		
 		<h2>시간표 확인</h2>
@@ -77,5 +80,14 @@
 			%>
 			
 		</table>
+		<%}
+			else{
+			%>	
+				<script>
+					alert("신청한 강의가 없습니다.");
+					location.href="after_login_studentMain.jsp";
+				</script>
+			<% 
+			} %>
 </body>
 </html>

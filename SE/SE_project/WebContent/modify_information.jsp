@@ -29,7 +29,7 @@
 			%>
 				<script>
 				alert("수정 성공");
-				location.href ="show_myinformation.jsp";
+				location.href ="after_login_studentMain.jsp";
 				</script>
 			
 			<% 

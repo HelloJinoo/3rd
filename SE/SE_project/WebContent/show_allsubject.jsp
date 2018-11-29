@@ -14,6 +14,9 @@
 	<%
 		Subject s = new Subject();
 		ResultSet rs = s.show_Allsubject();
+		
+		if(rs.next()){
+			rs.previous();
 		%>
 		
 		<table class="myinformation" >
@@ -78,5 +81,13 @@
 			</tr>
 		<%} %>
 			</table>
+			<%}
+				else{
+			%>
+				<script>
+					alert("등록된 강의가 없습니다.");
+					location.href="after_login_studentMain.jsp";
+				</script>
+			<% }%>
 </body>
 </html>
