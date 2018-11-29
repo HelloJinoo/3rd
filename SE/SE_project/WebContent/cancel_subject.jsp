@@ -19,7 +19,7 @@
 			%>
 				<script>	
 					alert("수강취소 되었습니다.");
-					Locaiont.href="after_login_sudentMain.jsp";
+					location.href="after_login_sudentMain.jsp";
 				</script>
 			<% 
 		}
@@ -27,7 +27,7 @@
 			%>
 			<script>	
 					alert("수강취소가 실패되었습니다.");
-					Locaiont.href="cancel_subject.jsp";
+					location.href="cancel_subject.jsp";
 				</script>
 			<% 
 		}

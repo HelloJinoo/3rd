@@ -18,7 +18,7 @@
 				%>
 					<script>
 						alert("삭제 성공");
-						Location.href= "after_login.manager.jsp";
+						location.href= "after_login.manager.jsp";
 					</script>
 				<% 
 			}
@@ -26,7 +26,7 @@
 				%>
 				<script>
 				alert("삭제 실패");
-				Location.href= "after_login.manager.jsp";
+				location.href= "after_login.manager.jsp";
 			</script>
 				</script>
 				<%

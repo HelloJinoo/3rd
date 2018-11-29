@@ -9,14 +9,16 @@
 <%@page import ="se.Subject" %>
 <body>
 <%		
+		String id = (String)session.getAttribute("id");
 		String sub_name= request.getParameter("sub_name");
 		String pro_name= request.getParameter("pro_name");
 		String grade = request.getParameter("grade");
 		String time= request.getParameter("time");
 		String day= request.getParameter("day");
 		String place= request.getParameter("place");
+		String personnel = request.getParameter("personnel");
 		Subject s = new Subject();
-		boolean result = s.regist_subject(sub_name, pro_name, Integer.parseInt(grade), time, day, place);
+		boolean result = s.regist_subject(id,sub_name, pro_name, Integer.parseInt(grade), Integer.parseInt(personnel),time, day, place);
 		if( result == true){
 			%>
 			<script>

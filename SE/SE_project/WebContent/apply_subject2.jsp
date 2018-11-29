@@ -19,7 +19,7 @@
 			%>
 				<script>	
 					alert("수강신청되었습니다.");
-					Locaiont.href="after_login_sudentMain.jsp";
+					location.href="after_login_sudentMain.jsp";
 				</script>
 			<% 
 		}

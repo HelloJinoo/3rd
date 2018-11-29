@@ -8,11 +8,8 @@
 </head>
 <body>
 
-			<form action="regist_subject.jsp" method ="post">
-				<input type="submit" value="강의등록" >
-			</form>
-			<form action="regist_subject.jsp" method ="post">
-				<input type="submit" value="성적부여" >
-			</form>
+	<% 
+		
+	%>
 </body>
 </html>

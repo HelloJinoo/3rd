@@ -35,10 +35,10 @@ public class Subject {
 	}
 	
 	/*교수 - 강의 등록*/
-	public boolean regist_subject(String subejct_name , String professor_name ,int grade, String time, String day , String place) throws Exception{
+	public boolean regist_subject(String id ,String subejct_name , String professor_name ,int grade, int personnel,String time, String day , String place) throws Exception{
 		String subject_number = "18-"+(find_subjectcount()+1);
 		conn = getConnection();
-		sql = "insert into subject values(?,?,?,?,?,?,?)";
+		sql = "insert into subject values(?,?,?,?,?,?,?,?)";
 		pstmt = (PreparedStatement) conn.prepareStatement(sql);
 		pstmt.setString(1, subject_number);
 		pstmt.setString(2, subejct_name);
@@ -47,8 +47,15 @@ public class Subject {
 		pstmt.setString(5, day);
 		pstmt.setInt(6, grade);
 		pstmt.setString(7, place);
+		pstmt.setInt(8,personnel);
 		int result = pstmt.executeUpdate();
-		if(result == 0){
+		
+		sql = "insert into regist values(?,?)";
+		pstmt = (PreparedStatement) conn.prepareStatement(sql);
+		pstmt.setString(1, id);
+		pstmt.setString(2, subject_number);
+		int result2 = pstmt.executeUpdate();
+		if(result == 0 || result2 ==0){
 			return false;
 		}
 		else{

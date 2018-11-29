@@ -23,7 +23,7 @@
 			%>
 			<script>
 				alert("회원 등록 성공");
-				Location.href="after_login_managerMain.jsp";
+				location.href="after_login_managerMain.jsp";
 			</script>
 			<% 
 		}
@@ -31,7 +31,7 @@
 			%>
 			<script>
 			alert("회원 등록 실패");
-			Location.href="after_login_managerMain.jsp";
+			location.href="after_login_managerMain.jsp";
 			</script>
 			<%
 		}
