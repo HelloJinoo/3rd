@@ -63,7 +63,7 @@
 				<%= rs.getString("grade")%>
 				</td>
 				<td>
-				<%= rs.getString("personnel")%>
+				 <%= rs.getString("personnel")%>
 				</td>
 				<td>
 				<%= rs.getString("time")%>

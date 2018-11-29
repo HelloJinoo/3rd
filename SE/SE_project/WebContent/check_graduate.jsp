@@ -9,19 +9,17 @@
  <%@page import="java.sql.ResultSet" %>  
 </head>
 <body>
-
-		<%
+	<%
+			int graduate_count=100;
 			Subject s = new Subject();
 			String id = (String)session.getAttribute("id");
 			ResultSet rs = s.view_timetable(id);
+			ResultSet count = s.subject_totalcount(id);
 		%>
 		
-		<h2>시간표 확인</h2>
+		<h2>수강 내역</h2>
 		<table class="myinformation" >
 			<tr>
-				<th>
-					선택
-				</th>
 				<th>
 					과목번호
 				</th>
@@ -49,9 +47,6 @@
 			%>
 			<tr>
 				<td>
-					<input type ="button" value ="수강취소" onClick="location.href='cancel_subject.jsp?subject_num=<%=rs.getString("subject_number") %>'">
-				</td>
-				<td>
 					<%=rs.getString("subject_number")%> 
 				</td>
 				<td>
@@ -77,5 +72,24 @@
 			%>
 			
 		</table>
+		
+		<%	int mytotal_grade = (Integer.parseInt(count.getString("count(*)") )*3); %>
+				<h3>현재 총 이수학점 : <%=mytotal_grade%> <br/> 졸업가능 학점 : <%=graduate_count%><h3>
+		<%
+	
+				if(graduate_count < mytotal_grade ){
+					%>
+						<h2>졸업 가능</h2>
+						
+					<% 
+				}
+				else{
+					%>
+					<h2>졸업 불가능</h2>
+				
+				<% 
+				}
+		%>
+			
 </body>
 </html>

@@ -18,10 +18,11 @@ public class Subject {
 	public Subject(){
 		
 	}
-	/*수강편람 조회*/
+	/*전체 - 수강편람 조회*/
 	public ResultSet show_Allsubject() throws Exception{
 		conn = getConnection();
 		sql = "select * from subject";
+		//sql = " select count(*) ,subject.subject_number , subject.subject_name ,subject.professor_name, subject.time,subject.day,subject.grade , subject.place, subject.personnel from subject , apply where subject.subject_number = apply.subject_number";
 		pstmt = (PreparedStatement) conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		
@@ -33,7 +34,7 @@ public class Subject {
 		return rs;
 	}
 	
-	/*강의 등록*/
+	/*교수 - 강의 등록*/
 	public boolean regist_subject(String subejct_name , String professor_name ,int grade, String time, String day , String place) throws Exception{
 		String subject_number = "18-"+(find_subjectcount()+1);
 		conn = getConnection();
@@ -56,7 +57,7 @@ public class Subject {
 		
 		
 	}
-	/*학생 - 강의등록*/
+	/*학생 - 강의신청*/
 	public boolean apply_subject(String id , String subject_num) throws Exception{
 		if(!check_mysubject(id, subject_num)){
 			conn = getConnection();
@@ -88,7 +89,7 @@ public class Subject {
 			return false;
 		}
 	}
-	/**/
+	/*시간표 확인*/
 	public ResultSet view_timetable(String id) throws Exception{
 		conn = getConnection();
 		sql = "select * from subject , apply where apply.id = ? && apply.subject_number = subject.subject_number";
@@ -104,7 +105,37 @@ public class Subject {
 		}
 		
 	}
+	/* 학생 - 수강취소 */
+	public boolean cancel_subject(String id , String subject_num) throws Exception{
+			conn = getConnection();
+			sql = "delete from apply where id =? && subject_number = ?";
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, subject_num);
+			int result = pstmt.executeUpdate();
+			if( result == 1 ){
+				return true;
+			}
+			else{
+				return false;
+			}
+	}
 	
+	/* 학생 - 졸업자가진단*/
+	public ResultSet subject_totalcount(String id) throws Exception{
+		conn = getConnection();
+		sql = "select count(*) from subject , apply where apply.id = ? && apply.subject_number = subject.subject_number && apply.grade != 'F' ";
+		pstmt = (PreparedStatement) conn.prepareStatement(sql);
+		pstmt.setString(1, id);
+		rs = pstmt.executeQuery();
+		if(rs.next()){
+			return rs;
+		}
+		else{
+			return rs;
+		}
+		
+	}
 	
 	/*등록된 강의 수*/
 	private int find_subjectcount() throws Exception {
