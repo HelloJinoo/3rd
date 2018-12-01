@@ -5,16 +5,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<%@page import="se.Graduate" %>
 <%@page import="se.Subject" %>
  <%@page import="java.sql.ResultSet" %>  
 </head>
 <body>
 	<%
 			int graduate_count=100;
+			Graduate g = new Graduate();
 			Subject s = new Subject();
 			String id = (String)session.getAttribute("id");
 			ResultSet rs = s.view_timetable(id);
-			ResultSet count = s.subject_totalcount(id);
+			ResultSet count = g.subject_totalcount(id);
 		%>
 		
 		<h2>수강 내역</h2>

@@ -14,9 +14,7 @@
 			<form action="regist_member.jsp" method ="post">
 				<input type="submit" value="회원등록" >
 			</form>
-			<form action="delete_member.jsp" method ="post">
-				<input type="submit" value="회원삭제" >
-			</form>
+
 			<form action="modify_member.jsp" method ="post">
 				<input type="submit" value="회원수정" >
 			</form>

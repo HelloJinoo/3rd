@@ -13,7 +13,7 @@
 		<h2>통합정보시스템</h2>
 
 		<form  action="login.jsp" method="post">
-		   학번 : <input type="text" name ="stdno" >
+		   아이디 : <input type="text" name ="id" >
 		  </br></br>
 		  비밀번호 : <input type="password" name="pwd" >
 		  <br>

@@ -127,22 +127,22 @@ public class Subject {
 				return false;
 			}
 	}
-	
-	/* 학생 - 졸업자가진단*/
-	public ResultSet subject_totalcount(String id) throws Exception{
+	/*교수 - 자신의 강의 목록*/
+	public ResultSet show_mylecture(String id) throws Exception{
 		conn = getConnection();
-		sql = "select count(*) from subject , apply where apply.id = ? && apply.subject_number = subject.subject_number && apply.grade != 'F' ";
+		sql = "select * from regist , subject where regist.id = ? &&regist.subject_number = subject.subject_number";
 		pstmt = (PreparedStatement) conn.prepareStatement(sql);
 		pstmt.setString(1, id);
 		rs = pstmt.executeQuery();
 		if(rs.next()){
+			rs.previous();
 			return rs;
 		}
 		else{
 			return rs;
 		}
-		
 	}
+	
 	
 	/*등록된 강의 수*/
 	private int find_subjectcount() throws Exception {

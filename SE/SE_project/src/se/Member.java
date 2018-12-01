@@ -107,6 +107,22 @@ public class Member {
 		
 	}
 	
+	/* 교수 - 강의신청한 학생보기*/
+	public ResultSet apply_student(String subject_number) throws Exception{
+		conn = getConnection();
+		sql = "select member.id , subject.subject_name from member ,apply , subject where apply.subject_number = ? && subject.subject_number = apply.subject_number  && member.id = apply.id";
+		pstmt = (PreparedStatement) conn.prepareStatement(sql);
+		pstmt.setString(1, subject_number);
+		rs = pstmt.executeQuery();
+		if(rs.next()){
+			rs.previous();
+			return rs;
+		}
+		else{
+			return rs;
+		}
+	}
+	
 	public Connection getConnection() throws Exception{
 		String jdbcUrl = "jdbc:mysql://localhost:3306/se_term";
 		Class.forName("com.mysql.jdbc.Driver");

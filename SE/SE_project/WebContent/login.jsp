@@ -12,7 +12,7 @@
 
 	<%
 		
-		String id = request.getParameter("stdno");
+		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 
 		Login l = new Login();
