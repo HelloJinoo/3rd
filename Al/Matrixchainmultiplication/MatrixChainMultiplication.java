@@ -18,44 +18,49 @@ public class MatrixChainMultiplication {
 			value v = new value(sp[0],Integer.parseInt(val[0]), Integer.parseInt(val[1]));
 			a.add(v);
 		}
-		int m[][] = new int[a.size()+1][a.size()+1];
-		int s[][] = new int[a.size()+1][a.size()+1];
+		int m[][] = new int[a.size()][a.size()];
+		int s[][] = new int[a.size()][a.size()];
 		
-	int n = m.length-1;
-		for(int l=2; l<=n; l++) {
-			for(int i=1; i<=n-l+1; i++) {
-				int j = i+l-1;
+	int n = m.length;
+		for(int l=1; l<n; l++) {
+			for(int i=0; i<n-l; i++) {
+				int j = i+l;
 				m[i][j]= Integer.MAX_VALUE;
 				for(int k=i; k<j; k++) {
-					int q = m[i][k] + m[k+1][j] + a.get(i-1).p*a.get(k).p*a.get(j-1).q;
+					int b = m[i][k];
+					int c = m[k+1][j];
+					int d = a.get(i).p;
+					int f = a.get(k).q;
+					int e = a.get(j).q;
+					int q = m[i][k] + m[k+1][j] + a.get(i).p * a.get(k).q* a.get(j).q;
 					if( q < m[i][j]) {
 						m[i][j] = q;
-						s[i][j]=k;
+						s[i][j]= k;
 					}
 				}
 			}
 		}
 		
-		for(int i=1; i<m.length;i++) {
-			for(int j=1; j<m[i].length; j++) {
+		for(int i=0; i<m.length;i++) {
+			for(int j=0; j<m[i].length; j++) {
 				System.out.printf("%8d",m[i][j] );
 			}
 			System.out.println();
 		}
 		System.out.println("-----------------------");
 
-		for(int i=1; i<m.length;i++) {
-			for(int j=1; j<m[i].length; j++) {
+		for(int i=0; i<m.length;i++) {
+			for(int j=0; j<m[i].length; j++) {
 				System.out.printf("%4d",s[i][j] );
 			}
 			System.out.println();
 		}
 		
-		print(s, 1,6);
+		print(s, 0,s.length-1);
 	}
 	public static void print(int s[][],int i, int j) {
 		if(i == j ) {
-			System.out.print(a.get(i-1).a);
+			System.out.print(a.get(i).a);
 		}
 		else {
 			System.out.print("(");
