@@ -29,6 +29,7 @@ public class Member {
 		pstmt.setString(1, id);
 		rs = pstmt.executeQuery();
 		if(rs.next()){
+			rs.previous();
 			return rs;
 		}
 		else{

@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="Main.css">
+<script src="function.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -29,6 +30,10 @@
 		<form action="check_graduate.jsp" method ="post">
 			<input type="submit" value="졸업자가진단" >
 		</form>
+		<form action="check_scholarship.jsp" method ="post">
+			<input type="submit" value="장학여부확인" >
+		</form>
+			<input type="button" value ="로그아웃" onclick="logout()">
 	
 </body>
 </html>

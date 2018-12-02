@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="function.js"></script>
 </head>
 <body>
 
@@ -14,5 +15,6 @@
 			<form action="show_mylecture.jsp" method ="post">
 				<input type="submit" value="성적부여" >
 			</form>
+				<input type="button" value ="로그아웃" onclick="logout()">
 </body>
 </html>

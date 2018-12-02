@@ -14,7 +14,6 @@
 		Grade g = new Grade();
 		String id = (String)session.getAttribute("id");
 		ResultSet rs = g.check_grade(id);
-		String score="";
 		if(rs.next()){
 			rs.previous();
 		%>
@@ -39,24 +38,6 @@
 				</tr>
 		<% 
 		while(rs.next()){
-			String grade = rs.getString("a.grade");
-			if(grade.equals("A") ){
-				score= "4";
-			}
-			else if(grade.equals("B") ){
-					score="3";
-			}
-			else if(grade.equals("C") ){
-					score= "2";
-				}
-			else if(grade.equals("D") ){
-					score= "1";
-				}
-			else if(grade.equals("F") ){
-					score= "0";
-			}
-		
-	
 	%>
 			<tr>
 				<td>
@@ -72,7 +53,16 @@
 				<%= rs.getString("a.grade")%>
 				</td>
 				<td>
-					<%=score %>
+				<%
+				if( rs.getString("a.grade").equals("")){
+					%>
+						
+					<% 
+				}else{%>
+					<%=rs.getString("a.score")%>
+				<% 
+				}
+					%>
 				</td>
 				
 			</tr>

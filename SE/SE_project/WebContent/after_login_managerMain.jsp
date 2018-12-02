@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="function.js"></script>
 </head>
 <body>
 
@@ -18,6 +19,14 @@
 			<form action="modify_member.jsp" method ="post">
 				<input type="submit" value="회원수정" >
 			</form>
+			
+			<form action="manage_scholarship.jsp" method ="post">
+				<input type="submit" value="장학관리" >
+			</form>
+			
+			
+			<input type="button" value ="로그아웃" onclick="logout()">
+			
 			
 </body>
 </html>

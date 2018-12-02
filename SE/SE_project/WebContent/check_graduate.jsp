@@ -46,6 +46,7 @@
 			</tr>
 			<%
 				while(rs.next()){
+				
 			%>
 			<tr>
 				<td>

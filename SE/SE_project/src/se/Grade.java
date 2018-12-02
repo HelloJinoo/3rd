@@ -25,13 +25,31 @@ public class Grade {
 			String sp[] = value[i].split(",");
 			String id = sp[0];
 			String grade = sp[1];
+			int score=0;
 			sql = "update apply set grade = ? where subject_number = ? && id = ?";
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			pstmt.setString(1, grade);
 			pstmt.setString(2, subject_number);
 			pstmt.setString(3, id);
-
-			int result = pstmt.executeUpdate();
+			int result = pstmt.executeUpdate();	
+			sql = "update apply set score = ? where subject_number = ? && id = ?";
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			if( grade.equals("A")){
+				score = 4;
+			}
+			else if(grade.equals("B") ){
+				score = 3;
+			}
+			else if(grade.equals("C")){
+				score = 2;
+			}
+			else if(grade.equals("D")){
+				score = 1;
+			}
+			pstmt.setInt(1, score);
+			pstmt.setString(2, subject_number);
+			pstmt.setString(3, id);
+			result = pstmt.executeUpdate();
 			if(result == 1){
 				flag =1;
 			}
@@ -49,7 +67,7 @@ public class Grade {
 	/*학생 - 성적확인 */
 	public ResultSet check_grade(String id) throws Exception{
 		conn = getConnection();
-		sql = "select s.subject_number, s.subject_name , s.grade , a.grade from subject s , apply a where a.id = ? && a.subject_number = s.subject_number;";
+		sql = "select s.subject_number, s.subject_name , s.grade , a.grade , a.score from subject s , apply a where a.id = ? && a.subject_number = s.subject_number;";
 		pstmt = (PreparedStatement) conn.prepareStatement(sql);
 		pstmt.setString(1, id);
 	

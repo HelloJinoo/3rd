@@ -27,7 +27,7 @@ public class Subject {
 		rs = pstmt.executeQuery();
 		
 		ArrayList<ResultSet> r = new ArrayList();
-		while(rs.next()){
+		if(rs.next()){
 			rs.previous();
 			return rs;
 		}
@@ -151,7 +151,8 @@ public class Subject {
 		pstmt = (PreparedStatement) conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		if(rs.next()){
-		return Integer.parseInt(rs.getString("count(*)"));
+			rs.previous();
+			return Integer.parseInt(rs.getString("count(*)"));
 		}
 		else{
 			return Integer.parseInt(rs.getString("count(*)"));
