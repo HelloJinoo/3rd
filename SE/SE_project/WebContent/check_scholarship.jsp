@@ -32,18 +32,23 @@
 			}
 			else{%>
 				<script>
-				alert("장학금등록이 되어있지않습니다.");
+				alert("장학금대상에 선택되지않습니다.");
 				</script>
 			<% 	
 			}
+		}
+		else{
 			%>
+			<script>
+			alert("장학금등록이 되어있지않습니다.");
+			</script>
+			<% 	
+		}
+		%>
 			
 			<script>
 			location.href="after_login_studentMain.jsp";
 			</script>
-		<%
-		}
-		%>
 				
 	
 	

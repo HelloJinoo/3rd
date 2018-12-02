@@ -27,7 +27,7 @@
 			%>
 			<script>	
 					alert("이미 신청한 강의입니다.");
-					Locaiont.href="apply_subject.jsp";
+					location.href="apply_subject.jsp";
 				</script>
 			<% 
 		}

@@ -73,6 +73,7 @@ public class Grade {
 	
 		rs = pstmt.executeQuery();
 		if( rs.next()){
+			rs.previous();
 			return rs;
 		}
 		else{

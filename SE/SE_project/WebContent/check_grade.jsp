@@ -54,7 +54,7 @@
 				</td>
 				<td>
 				<%
-				if( rs.getString("a.grade").equals("")){
+				if( rs.getString("a.grade").equals("F") || rs.getString("a.score").equals("0")){
 					%>
 						
 					<% 

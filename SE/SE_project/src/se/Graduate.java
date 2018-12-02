@@ -21,7 +21,7 @@ public class Graduate{
 	public ResultSet subject_totalcount(String id) throws Exception{
 		
 		conn = getConnection();
-		sql = "select count(*) from subject , apply where apply.id = ? && apply.subject_number = subject.subject_number && apply.grade != 'F' ";
+		sql = "select count(*) from subject , apply where apply.id = ? && apply.subject_number = subject.subject_number && apply.score !='0' ";
 		pstmt = (PreparedStatement) conn.prepareStatement(sql);
 		pstmt.setString(1, id);
 		rs = pstmt.executeQuery();

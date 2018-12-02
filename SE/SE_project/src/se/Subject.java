@@ -25,8 +25,7 @@ public class Subject {
 		//sql = " select count(*) ,subject.subject_number , subject.subject_name ,subject.professor_name, subject.time,subject.day,subject.grade , subject.place, subject.personnel from subject , apply where subject.subject_number = apply.subject_number";
 		pstmt = (PreparedStatement) conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
-		
-		ArrayList<ResultSet> r = new ArrayList();
+	
 		if(rs.next()){
 			rs.previous();
 			return rs;
@@ -68,11 +67,12 @@ public class Subject {
 	public boolean apply_subject(String id , String subject_num) throws Exception{
 		if(!check_mysubject(id, subject_num)){
 			conn = getConnection();
-			sql = "insert into apply values(?,?,?)";
+			sql = "insert into apply values(?,?,?,?)";
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, subject_num);
 			pstmt.setString(3, "");
+			pstmt.setInt(4,0);
 			int result = pstmt.executeUpdate();
 			return true;
 		}
@@ -151,7 +151,6 @@ public class Subject {
 		pstmt = (PreparedStatement) conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		if(rs.next()){
-			rs.previous();
 			return Integer.parseInt(rs.getString("count(*)"));
 		}
 		else{

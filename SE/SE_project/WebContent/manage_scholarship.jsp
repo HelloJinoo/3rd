@@ -61,8 +61,8 @@
 				else{
 			%>
 				<script>
-					alert("없습니다.");
-					location.href="after_login_professor.jsp";
+					alert("등록된 성적이 없습니다.");
+					location.href="after_login_managerMain.jsp";
 				</script>
 			<% }
 			%>

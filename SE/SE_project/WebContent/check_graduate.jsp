@@ -19,7 +19,7 @@
 			ResultSet count = g.subject_totalcount(id);
 		%>
 		
-		<h2>수강 내역</h2>
+		<h2>수강 내역 (F학점 , 성적입력되지 않은 과목은 총 이수학점에 포함x)</h2>
 		<table class="myinformation" >
 			<tr>
 				<th>
