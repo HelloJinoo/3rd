@@ -23,6 +23,9 @@
 		<form action="view_timetable.jsp" method ="post">
 			<input type="submit" value="시간표확인" >
 		</form>
+		<form action="check_grade.jsp" method ="post">
+			<input type="submit" value="성적조회" >
+		</form>
 		<form action="check_graduate.jsp" method ="post">
 			<input type="submit" value="졸업자가진단" >
 		</form>

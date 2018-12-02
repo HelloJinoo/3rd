@@ -2,6 +2,7 @@ package se;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
@@ -45,6 +46,22 @@ public class Grade {
 
 	}
 
+	/*학생 - 성적확인 */
+	public ResultSet check_grade(String id) throws Exception{
+		conn = getConnection();
+		sql = "select s.subject_number, s.subject_name , s.grade , a.grade from subject s , apply a where a.id = ? && a.subject_number = s.subject_number;";
+		pstmt = (PreparedStatement) conn.prepareStatement(sql);
+		pstmt.setString(1, id);
+	
+		rs = pstmt.executeQuery();
+		if( rs.next()){
+			return rs;
+		}
+		else{
+			return rs;
+		}
+
+	}
 
 	public Connection getConnection() throws Exception{
 		String jdbcUrl = "jdbc:mysql://localhost:3306/se_term";
