@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import org.antlr.v4.runtime.*;
@@ -12,5 +16,11 @@ public class UcodeGenterator {
 		
 		ParseTreeWalker walker = new ParseTreeWalker();
 		walker.walk(new UcodeGenListener(), tree);
+
+		BufferedWriter fw = new BufferedWriter(new FileWriter("Ucode.uco"));
+		//fw.write(UcodeGenListener.result);
+		fw.write(UcodeGenListener.result);
+		fw.close();
+		
 	}
 }

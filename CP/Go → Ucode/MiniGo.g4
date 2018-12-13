@@ -25,8 +25,8 @@ expr_stmt  : expr ; //o
 
 assign_stmt : VAR IDENT ',' IDENT type_spec '=' LITERAL ',' LITERAL //o
          | VAR IDENT type_spec '=' expr //o
-         | IDENT type_spec '=' expr
-         | IDENT '[' expr ']' '=' expr ;
+         | IDENT type_spec '=' expr //o
+         | IDENT '[' expr ']' '=' expr ; //o
          
          
 compound_stmt: '{' local_decl* stmt* '}'; //o
@@ -46,10 +46,10 @@ local_decl : VAR IDENT type_spec//o
              
              
 expr      : (LITERAL|IDENT) //o
-         | '(' expr ')'  //o
+         | '(' expr ')' 
          | IDENT '[' expr ']' //o
-         | IDENT '(' args ')' //
-         | FMT '.' IDENT '(' args ')' 
+         | IDENT '(' args ')' //o
+         | FMT '.' IDENT '(' args ')' //o
          | op=('-'|'+'|'--'|'++'|'!') expr  //o
          | left=expr op=('*'|'/'|'%') right=expr //o
          | left=expr op=('+'|'-') right=expr //o
