@@ -17,7 +17,7 @@ public class UcodeGenListener extends MiniGoBaseListener {
 	int globalVar_offset = 0;
 	int localVar_offset = 0;
 	List<Variable> symbol_table = new ArrayList<>();
-	//보조 메소드
+
 	public static boolean isNumber(char firstLetter) {
         if(firstLetter == ' ')	//비어있을 때 
             return false;
@@ -58,7 +58,7 @@ public class UcodeGenListener extends MiniGoBaseListener {
 	}
 	
 	private void insertTable(String varName, int base, int offset, int size, int param) {
-		if(blockNo == 1) {								//위치가 전역인 경우
+		if(blockNo == 1) {							//위치가 전역인 경우
 			if(lookupTable(varName, blockNo) == null) {
 				Variable newVar = new Variable(varName, base, offset, size, param);
 				symbol_table.add(newVar);
@@ -224,42 +224,29 @@ public void enterVar_decl(MiniGoParser.Var_declContext ctx) {
 
    @Override
    public void enterParam(MiniGoParser.ParamContext ctx) {
-	   
 	   	localVar_offset++;
-		String varName = ctx.getChild(0).getText();
-		int base = 2;	//전역 아닌 나머지 상황에서는 base 2
-		int offset = localVar_offset;
-		int size;
-		
-		/* symbol_table에 변수 넣어주기 */
-		if(ctx.getChildCount() ==4) { //
-			if(lookupTable(varName,blockNo) != null) {
-			size = lookupTable(varName, blockNo).size;
-			}
-			else {
-				size = 1;
-			}
-		}
-		else {
-			size = 1;
-		}
-		insertTable(varName, base, offset, size, 1);
-
    }
    
    @Override
 public void exitParam(MiniGoParser.ParamContext ctx) {
 	   super.exitParam(ctx);
+	 
 		String param = "";
 		String varName = ctx.getChild(0).getText();		// IDENT
 		Variable ident = lookupTable(varName, blockNo);
-		if(ident != null) {
-			param += printTab() + "sym " + ident.base + " " + ident.offset + " " + ident.size + "\n";
-			newTexts.put(ctx, param);
+		Variable ident2 =lookupTable(varName, 1);
+		int size=1;
+		if( ident == null && ident2 == null) {
+			int base = 2;	//전역 아닌 나머지 상황에서는 base 2
+			int offset = localVar_offset;
+			insertTable(varName, base, offset, size, 1);
+			ident = lookupTable(varName, blockNo);
+			param = printTab()+"sym " +ident.base +" " +ident.offset+ " " +ident.size+"\n";
+			newTexts.put(ctx,param);
 		}
 		else {
-			System.out.println( varName + "가 없습니다");
-			}
+			newTexts.put(ctx, param);
+		}
 		
 }
 
@@ -383,8 +370,8 @@ public void enterAssign_stmt(MiniGoParser.Assign_stmtContext ctx) {
 	   }
 	   else { // IDENT '[' expr ']' '=' expr 
 		    s1 = ctx.getChild(0).getText();	// IDENT
-		    size = Integer.parseInt(ctx.getChild(3).getText());
-			localVar_offset += (size - 1);
+		    size = Integer.parseInt(ctx.getChild(2).getText());
+			localVar_offset += size;
 			offset = localVar_offset;
 		    insertTable(s1, base, offset, size, 0);
 	   }
@@ -399,7 +386,7 @@ public void enterAssign_stmt(MiniGoParser.Assign_stmtContext ctx) {
 		 ident =lookupTable(s1,blockNo);
 		 ident2 =lookupTable(s2, blockNo);
 		  if(ident != null && ident2 != null) {
-			    value = printTab() + "sym " + ident.base + " " + ident.offset + " " + ident.size + "\n";
+			    value = printTab() +"sym " + ident.base + " " + ident.offset + " " + ident.size + "\n";
 			    value += printTab()+"sym " + ident2.base + " " + ident2.offset + " " + ident2.size + "\n";
 			    value += printTab()+"ldc" + " "+ctx.getChild(6).getText()+"\n";
 			    value += printTab()+"str "+ident.base + " "+ident.offset + "\n";
@@ -408,59 +395,28 @@ public void enterAssign_stmt(MiniGoParser.Assign_stmtContext ctx) {
 				newTexts.put(ctx, value);
 			}
 			else {
-				if(blockNo == 2) {	//로컬에서 변수 찾고 있는 경우 해당하는 로컬 변수가 없으면 전역에서 찾기
-					ident = lookupTable(s1, 1);
-					ident2 = lookupTable(s2, 1);
-					if(ident != null && ident2 != null) {
-						value = printTab()+"lod "+ident.base+" "+ident.offset+"\n";
-						value += printTab()+"ldc"+" "+ctx.getChild(6).getText()+"\n";
-						value += printTab()+"str"+" "+ident.base + " "+ident.offset + "\n";
-						value += printTab()+"lod "+ident2.base+" "+ident2.offset;
-					 	value += printTab()+"ldc"+" "+ctx.getChild(8).getText()+"\n";
-						value += printTab()+"str"+" "+ident2.base + " "+ident2.offset + "\n";
-					
-						newTexts.put(ctx, value);
-					}
-					else {
-						System.out.println(s1+" 변수가 없습니다");
-					}
-				}
+				System.out.println(s1+","+s2 +"변수가 없습니다.");
 			}
 	   }
 	 else if( ctx.getChildCount() == 5) {
 		 s1 = ctx.getChild(1).getText();
+		 String v2 = newTexts.get(ctx.expr(0));
 		 ident =lookupTable(s1,blockNo);
 			  if(ident != null) {
 				value = printTab() + "sym " + ident.base + " " + ident.offset + " " + ident.size + "\n";
-				value += printTab()+"ldc"+" "+ctx.getChild(4).getText()+"\n";
+				value += v2;
 				value += printTab()+"str "+ident.base + " "+ident.offset + "\n";
 				newTexts.put(ctx, value);
 				}
 				else {
-					if(blockNo == 2) {	//로컬에서 변수 찾고 있는 경우 해당하는 로컬 변수가 없으면 전역에서 찾기
-						ident = lookupTable(s1, 1);
-		
-						if(ident != null) {
-							value = printTab() + "sym " + ident.base + " " + ident.offset + " " + ident.size + "\n";
-							value += printTab()+"ldc"+" "+ctx.getChild(4).getText()+"\n";
-							value += printTab()+"str "+ident.base + " "+ident.offset + "\n";
-							newTexts.put(ctx, value);
-						}
-						else {
-							System.out.println(s1+"변수가 없습니다.");
-						}
-					}
-
+					System.out.println(s1+"변수가 없습니다.");
 				}
 	   } 
-   
 	   else if(ctx.getChildCount() == 4) { //IDENT type_spec '=' expr
 		   s1 = ctx.getChild(0).getText();
 		   ident =lookupTable( s1,blockNo);
 		    v1 = newTexts.get(ctx.expr(0));
-			  
 			  if(ident != null) {
-				  	value = printTab() + "sym " + ident.base + " " + ident.offset + " " + ident.size + "\n";
 				  	value += v1;
 					value += printTab()+"str "+ident.base + " "+ident.offset + "\n";
 					newTexts.put(ctx, value);
@@ -469,7 +425,6 @@ public void enterAssign_stmt(MiniGoParser.Assign_stmtContext ctx) {
 					if(blockNo == 2) {	//로컬에서 변수 찾고 있는 경우 해당하는 로컬 변수가 없으면 전역에서 찾기
 						ident = lookupTable(s1, 1);
 						if(ident != null) {
-							value = printTab() + "lod " + ident.base + " " + ident.offset + "\n";
 							value += v1;
 							value += printTab()+"str "+ident.base + " "+ident.offset + "\n";
 							newTexts.put(ctx, value);
@@ -478,17 +433,15 @@ public void enterAssign_stmt(MiniGoParser.Assign_stmtContext ctx) {
 							System.out.println(s1+" 변수가  없습니다");
 						}
 					}
-					System.out.println(s1+" 변수가  없습니다.");
 				}
 		   
-	   }else {
+	   }else {  //IDENT '[' expr ']' '=' expr
 			v1 = newTexts.get(ctx.expr(0));	// expr
 			String v2 = newTexts.get(ctx.expr(1));	// expr
 			ident = lookupTable(s1, blockNo);
 			if(ident != null) {
-				value = printTab() + "sym " + ident.base + " " + ident.offset + " " + ident.size + "\n";
-				value += printTab() + "lda " + ident.base + " " + ident.offset + "\n";
 				value += v1;
+				value += printTab() + "lda " + ident.base + " " + ident.offset + "\n";
 				value += printTab() + "add\n";
 				value += v2; 
 				value += printTab() + "sti\n";
@@ -498,7 +451,6 @@ public void enterAssign_stmt(MiniGoParser.Assign_stmtContext ctx) {
 				if(blockNo == 2) {	//로컬에서 변수 찾고 있는 경우 해당하는 로컬 변수가 없으면 전역에서 찾기
 					ident = lookupTable(s1, 1);
 					if(ident != null) {
-						value = printTab() + "sym " + ident.base + " " + ident.offset + " " + ident.size + "\n";
 						value += printTab() + "lda " + ident.base + " " + ident.offset + "\n";
 						value += v1;
 						value += printTab() + "add\n";
@@ -640,12 +592,11 @@ public void enterAssign_stmt(MiniGoParser.Assign_stmtContext ctx) {
 				}
 				newTexts.put(ctx, s1 + printTab() + op);
 			}
-			else if(ctx.getChildCount() == 3 && ctx.getChild(0).equals("("))
+			/* ( expr )*/
+			else if(ctx.getChildCount() == 3 && ctx.getChild(0).getText().equals("("))
 			{
-				
-					String s = newTexts.get(ctx.expr(0));
-					newTexts.put(ctx, s);
-				
+				value = newTexts.get(ctx.expr(0));
+				newTexts.put(ctx, value);
 			}
 				// IDENT '=' expr
 			else if(ctx.getChild(1).getText().equals("="))
@@ -662,7 +613,6 @@ public void enterAssign_stmt(MiniGoParser.Assign_stmtContext ctx) {
 						if(blockNo == 2) {	//로컬에서 변수 찾고 있는 경우 해당하는 로컬 변수가 없으면 전역에서 찾기
 							ident = lookupTable(s1, 1);
 							if(ident != null) {
-								value = printTab() + "lod " + ident.base + " " + ident.offset + "\n";
 								value += s2;
 								value += printTab() + "str " + ident.base + " " + ident.offset + "\n";
 								newTexts.put(ctx, value);
@@ -688,12 +638,13 @@ public void enterAssign_stmt(MiniGoParser.Assign_stmtContext ctx) {
 					}
 					newTexts.put(ctx, s);
 				}
-				//fmt.IDENT
+				//fmt.IDENT(args)
 				else if( ctx.getChild(1).getText().equals(".")) {
 					s1 = ctx.getChild(2).getText();
 					value = printTab() + "ldp\n"; 
 					value += newTexts.get(ctx.args());
-					value += printTab() + "call write\n"; 
+					value += printTab() + "call"+s1+"\n"; 
+					value += printTab() + "call write\n";
 					newTexts.put(ctx, value);
 				}// IDENT '(' args ')' 
 				else if(ctx.getChildCount() == 4 && ctx.getChild(1).getText().equals("("))
@@ -719,7 +670,6 @@ public void enterAssign_stmt(MiniGoParser.Assign_stmtContext ctx) {
 							if(blockNo == 2) {	//로컬에서 변수 찾고 있는 경우 해당하는 로컬 변수가 없으면 전역에서 찾기
 								ident = lookupTable(s1, 1);
 								if(ident != null) {
-									value = printTab() + "lod " + ident.base + " " + ident.offset + "\n";
 									value += newTexts.get(ctx.expr(0));
 									value += printTab() + "lda " + ident.base + " " + ident.offset + "\n";
 									value += printTab() + "add\n";
@@ -729,6 +679,7 @@ public void enterAssign_stmt(MiniGoParser.Assign_stmtContext ctx) {
 									System.out.println(s1 + "변수가 없습니다.");
 								}
 							}
+	
 						}
 					}
 				
@@ -751,7 +702,6 @@ public void enterAssign_stmt(MiniGoParser.Assign_stmtContext ctx) {
 						if(blockNo == 2) {	//로컬에서 변수 찾고 있는 경우 해당하는 로컬 변수가 없으면 전역에서 찾기
 							ident = lookupTable(s1, 1);
 							if(ident != null) {
-								value = printTab() + "lod " + ident.base + " " + ident.offset + "\n";
 								value += s2;
 								value += printTab() + "lda " + ident.base + " " + ident.offset + "\n";
 								value += printTab() + "add\n";

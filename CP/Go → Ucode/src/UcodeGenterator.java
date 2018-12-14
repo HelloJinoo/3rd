@@ -18,7 +18,6 @@ public class UcodeGenterator {
 		walker.walk(new UcodeGenListener(), tree);
 
 		BufferedWriter fw = new BufferedWriter(new FileWriter("Ucode.uco"));
-		//fw.write(UcodeGenListener.result);
 		fw.write(UcodeGenListener.result);
 		fw.close();
 		
