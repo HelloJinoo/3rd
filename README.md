@@ -1,6 +1,8 @@
 
 <h2>A third grade assignment</h2>
   <ul>
-    <li>알고리즘</li>
-    
+    <li>Algorithm</li>
+    <li>DataBase</li>
+    <li>Mobile</li>
+    <li>Compiler</li>
   </ul>
